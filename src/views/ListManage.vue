@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <el-header>Header</el-header>
+        <el-header><h1>快速配置列表</h1></el-header>
         <el-main>
             <el-button type="primary" plain :icon="Plus"
                 @click="currentIndex = -1; showEditDialog = true;">新增</el-button>
@@ -117,10 +117,12 @@ const exportConfig = function () {
     saveAs(blob, "data.json");
 }
 
+// 删除配置
 const remove = function (scope: any) {
     store.data.splice(scope.$index, 1)
 }
 
+// 打开页面
 const openPage = function (scope: any) {
     currentIndex.value = scope.$index
     // 遍历对象的键并删除它们
@@ -146,6 +148,7 @@ const openPage = function (scope: any) {
 
 }
 
+// 传递搜索条件
 const search = function () {
     let query = ''
 

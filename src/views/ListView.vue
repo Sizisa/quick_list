@@ -22,13 +22,19 @@ const tableData = ref([] as any)
 const loading = ref(true)
 const colnumData = store.data[Number(route.params.index)]
 
+// 修改标题
+document.title = colnumData.name
+
+// 接口请求类型
 const requestType = colnumData.requestType || 'get'
 
+// 接口请求配置
 const config: AxiosRequestConfig = {
     method: requestType,
     url: colnumData.url
 }
 
+// 组织搜索条件
 if (route.query && Object.keys(route.query).length > 0) {
     if (config.method?.toLocaleLowerCase() === 'get') {
         let query = ''
@@ -41,11 +47,8 @@ if (route.query && Object.keys(route.query).length > 0) {
     }
 }
 
-console.log(config);
 
-
-
-document.title = colnumData.name
+// 请求接口
 axios(config)
     .then(res => {
         if (res.status === 200) {

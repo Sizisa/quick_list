@@ -91,10 +91,11 @@ const form = reactive<Form>({
     searchItems: []
 })
 
+//请求选项
 const requestOption = [{ label: 'GET', value: 'GET' }, { label: 'POST', value: 'POST' }]
 
 
-
+//将 store 中的数据复制给 form
 const init = function () {
     if (props.currentIndex != undefined && props.currentIndex !== -1) {
         let data: any = store.data[props.currentIndex]
@@ -127,10 +128,12 @@ const removeCol = function (index: number) {
     form.items.splice(index, 1)
 }
 
+//添加搜索条件
 const addSearch = function () {
     form.searchItems.push({ label: '', valueName: '' })
 }
 
+// 删除搜索条件
 const removeSearch = function (index: number) {
     form.searchItems.splice(index, 1)
 }
@@ -173,6 +176,8 @@ const changeDataNode = function () {
     }
 }
 
+
+// 保存搜索条件
 const save = function () {
     if (props.currentIndex != undefined && props.currentIndex === -1) {
         store.data.push(form)
