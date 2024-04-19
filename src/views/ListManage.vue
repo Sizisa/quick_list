@@ -122,6 +122,7 @@ const remove = function (scope: any) {
 }
 
 const openPage = function (scope: any) {
+    currentIndex.value = scope.$index
     // 遍历对象的键并删除它们
     for (let key in searchLabel) {
         if (searchLabel.hasOwnProperty(key)) {
@@ -137,9 +138,11 @@ const openPage = function (scope: any) {
         for (let item of tableData[scope.$index].searchItems) {
             searchLabel[item.label] = item.valueName
         }
+        showSearchDialog.value = true
+    } else {
+        window.open(window.location.href + 'list/' + (currentIndex.value), '_blank')
     }
-    showSearchDialog.value = true
-    currentIndex.value = scope.$index
+
 
 }
 
