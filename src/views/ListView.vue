@@ -1,14 +1,21 @@
 <template>
   <el-container>
     <el-main>
-      <el-table v-loading="loading" :data="tableData" stripe>
+      <el-table v-loading="loading" :data="tableData" :height="screenHeight" stripe>
+        <el-table-column type="selection" width="55" />
+        <el-table-column type="index" />
         <el-table-column
           v-for="(item, index) in colnumData.items"
           :key="index"
           :prop="item.valueName"
           :label="item.label"
-        /> </el-table
-    ></el-main>
+        />
+      </el-table>
+      <div style="margin-top: 20px">
+        <el-button type="primary" plain> Toggle selection status of second and third rows </el-button>
+        <el-button type="primary" plain>Clear selection</el-button>
+      </div>
+    </el-main>
   </el-container>
 </template>
 <script setup lang="ts">
@@ -23,6 +30,7 @@ const store = useStore()
 const tableData = ref([] as any)
 const loading = ref(true)
 const colnumData = store.data[Number(route.params.index)]
+const screenHeight = ref(window.innerHeight - 150)
 
 // 修改标题
 document.title = colnumData.name

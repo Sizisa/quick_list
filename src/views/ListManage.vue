@@ -5,9 +5,9 @@
       <el-button type="primary" plain :icon="Plus" @click="openEditDialog(-1)">新增</el-button>
       <el-popconfirm
         title="该操作会读取剪切板中的配置，并将配置覆盖！"
+        confirm-button-text="确定"
         cancel-button-text="取消"
         width="190"
-        confirm-button-text="确定"
         @confirm="readConfig"
       >
         <template #reference>
@@ -70,11 +70,14 @@ import dayjs from 'dayjs'
 
 const store = useStore()
 
+// 快速配置列表
 const tableData = store.data
 
+// 当前列表索引
 const currentIndex = ref(-1)
-
+// 搜索条件标签名
 const searchLabel = reactive<any>({})
+// 搜索条件数据
 const searchData = reactive<any>({})
 
 //编辑配置的弹窗
@@ -82,7 +85,7 @@ const editConfigRef = ref()
 
 //是否显示编辑弹窗
 const showEditDialog = ref(false)
-
+// 是否显示搜索条件弹窗
 const showSearchDialog = ref(false)
 
 //保存配置

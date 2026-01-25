@@ -71,6 +71,34 @@
         </div>
       </template>
     </draggable>
+    <el-row>
+      <span style="padding-right: 10px; padding-bottom: 10px">工具栏</span>
+      <el-button type="primary" plain size="small" @click="addTool">新增</el-button>
+    </el-row>
+    <draggable
+      v-model="form.tools"
+      item-key="index"
+      animation="300"
+      handle=".drag-handle"
+      class="drag-area"
+    >
+      <template #item="{ element, index }">
+        <div>
+          <el-form-item>
+            <!-- 拖动把手 -->
+            <span class="drag-handle"></span>
+            <!-- 表头文本 -->
+            <span style="padding-right: 5px">工具{{ index + 1 }}</span>
+            <el-input v-model="element.label" style="width: 150px" placeholder="名称" />
+            <span style="padding: 0 5px">-</span>
+            <el-input v-model="element.valueName" style="width: 150px" placeholder="属性名" />
+            <el-button link type="primary" size="small" @click="removeSearch(index)"
+              >删除</el-button
+            >
+          </el-form-item>
+        </div>
+      </template>
+    </draggable>
   </el-form>
 </template>
 <script setup lang="ts">
@@ -85,6 +113,13 @@ interface Item {
   valueName: string
 }
 
+interface ToolItem {
+  name: string
+  paramName: string
+  colunmName: string
+  url: string
+}
+
 interface Form {
   items: Item[]
   name: string //列表名称
@@ -93,6 +128,7 @@ interface Form {
   dataName: string //列表对应json中的名称，可以多级比如data.class.students,最后students必须是一个list，默认为data
   date: Date
   searchItems: Item[] //搜索条件
+  tools: ToolItem[]
 }
 
 const props = defineProps(['currentIndex'])
@@ -106,7 +142,8 @@ const form = reactive<Form>({
   dataName: '',
   date: new Date(),
   items: [],
-  searchItems: []
+  searchItems: [],
+  tools: []
 })
 
 //请求选项
@@ -156,6 +193,11 @@ const addSearch = function () {
 // 删除搜索条件
 const removeSearch = function (index: number) {
   form.searchItems.splice(index, 1)
+}
+
+//添加搜索条件
+const addTool = function () {
+  form.tools.push({ name:'',paramName:'',colunmName:'',url:'' })
 }
 
 //修改数据节点

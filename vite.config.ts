@@ -18,6 +18,14 @@ export default defineConfig({
     assetsDir: 'assets', // 指定生成静态资源的存放路径
     sourcemap: false // 是否生成 source map
   },
+  server:{
+    proxy:{
+      '/api': {
+        target: 'https://v.api.aa1.cn/api',
+        changeOrigin: true,
+      },
+    }
+  },
   plugins: [
     vue(),
     VueDevTools(),
